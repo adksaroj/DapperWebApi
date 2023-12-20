@@ -1,5 +1,6 @@
 
 using DapperWebApi.Data;
+using DapperWebApi.Middlewares;
 using DapperWebApi.Repo;
 
 namespace DapperWebApi
@@ -12,7 +13,7 @@ namespace DapperWebApi
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddXmlSerializerFormatters();
 
             //builder.Services.AddDbContext<DapperDbContext>(); //NOT USING AS EF CORE IS NOT USED IN THIS CASE
             builder.Services.AddScoped<DapperDbContext>();
@@ -37,6 +38,9 @@ namespace DapperWebApi
 
 
             app.MapControllers();
+
+            //middleware - can place anywhere between builder.build and app.run
+            app.UseMiddleware<GlobalExceptionMiddleware>();
 
             app.Run();
         }

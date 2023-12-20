@@ -21,6 +21,7 @@ namespace DapperWebApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<Villa>), 200)]
         public IActionResult GetAll()
         {
+            //throw new CustomException("Custom exception occured.");
             var result = _repo.GetAll().Result;
             return new OkObjectResult(result);
         }
